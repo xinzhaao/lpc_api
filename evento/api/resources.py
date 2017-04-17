@@ -8,6 +8,9 @@ class TipoInscricaoResource(ModelResource):
     class Meta:
         queryset = TipoInscricao.objects.all()
         allowed_methods = ['get']
+        filtering = {
+            "descricao": ('exact', 'startswith',)
+        }
 
 
 class UserResource(ModelResource):
