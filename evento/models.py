@@ -57,7 +57,6 @@ class PessoaJuridica(Pessoa):
 
 class Autor(Pessoa):
     curriculo = models.CharField('curriculo', max_length=200)
-
     def __str__(self):
         return '{}'.format(self.curriculo)
 

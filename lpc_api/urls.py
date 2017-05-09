@@ -27,8 +27,11 @@ v1_api.register(InscricaoResource())
 v1_api.register(PessoaFisicaResource())
 v1_api.register(EventoResource())
 v1_api.register(PessoaResource())
+v1_api.register(PessoaJuridicaResource())
 v1_api.register(EventoCientificoResource())
 v1_api.register(AutorResource())
+v1_api.register(ArtigoCientificoResource())
+v1_api.register(ArtigoAutorResource())
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

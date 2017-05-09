@@ -4,14 +4,7 @@ from evento.models import *
 from django.contrib.auth.models import User
 from tastypie.authorization import Authorization
 
-class TipoInscricaoResource(ModelResource):
-    class Meta:
-        queryset = TipoInscricao.objects.all()
-        allowed_methods = ['get','post','put','delete']
-        authorization = Authorization()
-        filtering = {
-            "descricao": ('exact', 'startswith',)
-        }
+
 
 
 class UserResource(ModelResource):
@@ -48,11 +41,6 @@ class PessoaJuridicaResource(ModelResource):
         allowed_methods = ['get','post','put','delete']
         authorization = Authorization()
 
-class AutorResource(ModelResource):
-    class Meta:
-        queryset = Autor.objects.all()
-        allowed_methods = ['get','post','put','delete']
-        authorization = Authorization()
 
 class EventoResource(ModelResource):
     realizador = fields.ToOneField(PessoaResource, 'realizador')
@@ -63,17 +51,44 @@ class EventoResource(ModelResource):
         authorization = Authorization()
 
 class InscricaoResource(ModelResource):
-    pessoa = fields.ToOneField(PessoaFisicaResource, 'pessoa')
+    pessoafisica = fields.ToOneField(PessoaFisicaResource, 'pessoafisica')
     evento = fields.ToOneField(EventoResource, 'evento')
     class Meta:
         queryset = Inscricoes.objects.all()
         allowed_methods = ['get','post','put','delete']
         authorization = Authorization()
 
+class TipoInscricaoResource(ModelResource):
+    class Meta:
+        queryset = TipoInscricao.objects.all()
+        allowed_methods = ['get','post','put','delete']
+        authorization = Authorization()
+        filtering = {
+            "descricao": ('exact', 'startswith',)
+        }
 
 class EventoCientificoResource(ModelResource):
     realizador = fields.ToOneField(PessoaResource, 'realizador')
     class Meta:
         queryset = EventoCientifico.objects.all()
+        allowed_methods = ['get','post','put','delete']
+        authorization = Authorization()
+
+
+class ArtigoCientificoResource(ModelResource):
+    evento = fields.ToOneField(EventoCientificoResource, 'evento')
+    class Meta:
+        queryset = ArtigoCientifico.objects.all()
+        allowed_methods = ['get','post','put','delete']
+        authorization = Authorization()
+
+
+
+
+class ArtigoAutorResource(ModelResource):
+    artigocientifico = fields.ToOneField(ArtigoCientificoResource, 'artigoCientifico')
+    autor = fields.ToOneField(AutorResource, 'autor')
+    class Meta:
+        queryset = ArtigoAutor.objects.all()
         allowed_methods = ['get','post','put','delete']
         authorization = Authorization()
